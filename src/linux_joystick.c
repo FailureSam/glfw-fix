@@ -326,8 +326,7 @@ GLFWbool _glfwInitJoysticksLinux(void)
 
     // Continue without device connection notifications if inotify fails
 
-    _glfw.linjs.regexCompiled = (regcomp(&_glfw.linjs.regex, "^event[0-9]\\+$", 0) == 0);
-    if (!_glfw.linjs.regexCompiled)
+    if (regcomp(&_glfw.linjs.regex, "^event[0-9]\\+$", 0) != 0)
     {
         _glfwInputError(GLFW_PLATFORM_ERROR, "Linux: Failed to compile regex");
         return GLFW_FALSE;
@@ -379,10 +378,8 @@ void _glfwTerminateJoysticksLinux(void)
             inotify_rm_watch(_glfw.linjs.inotify, _glfw.linjs.watch);
 
         close(_glfw.linjs.inotify);
-    }
-
-    if (_glfw.linjs.regexCompiled)
         regfree(&_glfw.linjs.regex);
+    }
 }
 
 GLFWbool _glfwPollJoystickLinux(_GLFWjoystick* js, int mode)

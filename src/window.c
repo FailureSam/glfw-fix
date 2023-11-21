@@ -528,34 +528,6 @@ GLFWAPI void glfwSetWindowTitle(GLFWwindow* handle, const char* title)
 GLFWAPI void glfwSetWindowIcon(GLFWwindow* handle,
                                int count, const GLFWimage* images)
 {
-    int i;
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-
-    assert(window != NULL);
-    assert(count >= 0);
-    assert(count == 0 || images != NULL);
-
-    _GLFW_REQUIRE_INIT();
-
-    if (count < 0)
-    {
-        _glfwInputError(GLFW_INVALID_VALUE, "Invalid image count for window icon");
-        return;
-    }
-
-    for (i = 0; i < count; i++)
-    {
-        assert(images[i].pixels != NULL);
-
-        if (images[i].width <= 0 || images[i].height <= 0)
-        {
-            _glfwInputError(GLFW_INVALID_VALUE,
-                            "Invalid image dimensions for window icon");
-            return;
-        }
-    }
-
-    _glfw.platform.setWindowIcon(window, count, images);
 }
 
 GLFWAPI void glfwGetWindowPos(GLFWwindow* handle, int* xpos, int* ypos)
@@ -1078,12 +1050,7 @@ GLFWAPI GLFWwindowfocusfun glfwSetWindowFocusCallback(GLFWwindow* handle,
 GLFWAPI GLFWwindowiconifyfun glfwSetWindowIconifyCallback(GLFWwindow* handle,
                                                           GLFWwindowiconifyfun cbfun)
 {
-    _GLFWwindow* window = (_GLFWwindow*) handle;
-    assert(window != NULL);
-
-    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
-    _GLFW_SWAP(GLFWwindowiconifyfun, window->callbacks.iconify, cbfun);
-    return cbfun;
+    return NULL;
 }
 
 GLFWAPI GLFWwindowmaximizefun glfwSetWindowMaximizeCallback(GLFWwindow* handle,
