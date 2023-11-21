@@ -98,7 +98,8 @@ OS and window system.
 
 **New**
  - Bugfix: MacOS Applications not correctly handeling _glfwInputError(GLFW_FEATURE_UNAVAILABLE, "Cocoa: Regular windows do not have icons on macOS");
-    MacOS should never implement or give paremeter to include window icons in the first place, very poor choice on the master repo. 
+    MacOS should never implement or give paremeter to include window icons in the first place, very poor choice on the master repo.
+    This fixes the following Minecraft crashing error: Cocoa: Regular windows do not have icons on macOS.
 
  **Previous**
  - Added `GLFW_PLATFORM` init hint for runtime platform selection (#1958)
